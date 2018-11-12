@@ -33,6 +33,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().
+                    beginTransaction().replace(R.id.flContent,new PopularFragment()).commit();
+        }
     }
 
     @Override
@@ -74,12 +79,18 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         Fragment fragment = null;
-        Class fragmentClass;
+        Class fragmentClass = null;
 
         if (id == R.id.nav_popular) {
-            // Handle the camera action
+            fragmentClass = PopularFragment.class;
         } else if (id == R.id.nav_top_rated) {
             fragmentClass = TopRatedFragment.class;
+        }
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         // Insert the fragment by replacing any existing fragment

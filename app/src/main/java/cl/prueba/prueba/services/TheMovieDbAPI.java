@@ -19,7 +19,4 @@ public interface TheMovieDbAPI {
     @GET("3/genre/movie")
     Call<Genre> getGenre(@Query("api_key") String apiKey);
 
-    @GET("t/p/w500/{imageName}")
-    Call<ResponseBody> getImage(@Path("imageName") String imageName);
-
 }
